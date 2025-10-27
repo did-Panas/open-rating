@@ -1,0 +1,59 @@
+@font-face { 
+	font-family: "iconfont"; 
+	font-display: swap;
+	src: url("D://WEB_DEV/PROJS IN PROCESS/OPEN RATING/open-rating_DEV/src/assets/svgicons/preview/iconfont.woff2?8201e48cd31fd429b1a6f1432dc570b4") format("woff2"); 
+} 
+[class*="--icon-"]::before{
+	font-family: iconfont; 
+}
+	[class*="--icon-youTube"]::before { 
+		content: "\f101"; 
+	} 
+	[class*="--icon-web3"]::before { 
+		content: "\f102"; 
+	} 
+	[class*="--icon-wallets"]::before { 
+		content: "\f103"; 
+	} 
+	[class*="--icon-Twitter"]::before { 
+		content: "\f104"; 
+	} 
+	[class*="--icon-TikTok"]::before { 
+		content: "\f105"; 
+	} 
+	[class*="--icon-storing"]::before { 
+		content: "\f106"; 
+	} 
+	[class*="--icon-security"]::before { 
+		content: "\f107"; 
+	} 
+	[class*="--icon-play"]::before { 
+		content: "\f108"; 
+	} 
+	[class*="--icon-nft"]::before { 
+		content: "\f109"; 
+	} 
+	[class*="--icon-next"]::before { 
+		content: "\f10a"; 
+	} 
+	[class*="--icon-games"]::before { 
+		content: "\f10b"; 
+	} 
+	[class*="--icon-exchanging"]::before { 
+		content: "\f10c"; 
+	} 
+	[class*="--icon-crypto-wallet"]::before { 
+		content: "\f10d"; 
+	} 
+	[class*="--icon-crypto-curr"]::before { 
+		content: "\f10e"; 
+	} 
+	[class*="--icon-buying"]::before { 
+		content: "\f10f"; 
+	} 
+	[class*="--icon-blockchain"]::before { 
+		content: "\f110"; 
+	} 
+	[class*="--icon-arrow"]::before { 
+		content: "\f111"; 
+	} 

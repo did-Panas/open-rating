@@ -1,0 +1,201 @@
+@use "sass:color";
+
+// HERO - section
+.hero {
+	position: relative;
+
+	&::before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		width: 1800px;
+		height: 1800px;
+		top: -950px;
+		left: 50%;
+		transform: translate(-50%, 0px);
+		background-image: url("@img/shine.svg");
+		background-position: center center; /* x y */
+		background-size: cover;
+		background-repeat: no-repeat;
+
+		opacity: 0.8;
+	}
+
+	// .hero__container
+	&__container {
+		position: relative;
+	}
+
+	// .hero__content
+	&__content {
+		position: relative;
+		z-index: 7;
+
+		margin: 0 auto;
+		padding-top: 96px;
+		text-align: center;
+
+		max-width: 795px;
+
+		@media (max-width: toEm($tablet)) {
+			max-width: 560px;
+		}
+
+		@media (max-width: toEm($mobile)) {
+			padding-top: 48px;
+		}
+
+		@media (max-width: toEm(375)) {
+			padding-top: 32px;
+		}
+	}
+
+	// .hero__title
+	&__title {
+		@include adaptiveValue("margin-bottom", 32, 24, 0, 768, 375);
+	}
+
+	// .hero__txt
+	&__txt {
+		@include adaptiveValue("margin-bottom", 48, 40, 0, 768, 375);
+	}
+
+	// .hero__btn
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		border-radius: 10px;
+		padding: 10px 24px;
+		width: 163px;
+		height: 56px;
+
+		background: $accentColor;
+		color: $primaryColor;
+		font-weight: 700;
+		font-size: 13px;
+		line-height: 150%;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+
+		transition:
+			background-color 0.3s ease,
+			box-shadow 0.3s ease;
+
+		@media (any-hover: hover) {
+			&:hover {
+				background: color.adjust($accentColor, $lightness: -5%);
+				box-shadow: 0 0 10px rgba($accentColor, 0.7);
+			}
+		}
+	}
+
+	// .hero__images
+	&__images {
+		// .hero__images_left
+		&_left {
+			position: absolute;
+			top: 8px;
+			// left: -9px;
+			// left: -235px;
+			@include adaptiveValue("left", -9, -235, 0, 1350, 320);
+		}
+
+		// .hero__images_right
+		&_right {
+			position: absolute;
+			// right: 7px;
+			// right: -255px;
+			@include adaptiveValue("right", 7, -255, 0, 1200, 320);
+			top: 8px;
+		}
+	}
+
+	// .hero__cardano
+	&__cardano {
+		position: absolute;
+		top: 20.869565%; /* 96/460 */
+		right: 2.5%; /* 8/320 */
+
+		width: 320px;
+		height: 320px;
+	}
+
+	// .hero__bitcoin
+	&__bitcoin {
+		width: 360px;
+		height: 360px;
+	}
+
+	// .hero__chips
+	&__chips {
+		position: relative;
+		z-index: 5;
+	}
+
+	// .hero__chips-l
+	&__chips-l {
+		width: 320px;
+		height: 460px;
+	}
+
+	// .hero__chips-r
+	&__chips-r {
+		position: absolute;
+		top: 15.5%;
+		right: -13%;
+
+		width: 320px;
+		height: 380px;
+	}
+}
+
+// PRODUCTS - section
+.products {
+	// .products__container
+	&__container {
+	}
+
+	// .products__product
+	&__product {
+	}
+}
+
+.product {
+	// .product_learning
+	&_learning {
+	}
+
+	// .product_gaming
+	&_gaming {
+	}
+
+	// .product__title
+	&__title {
+	}
+
+	// .product__txt
+	&__txt {
+	}
+
+	// .product__list
+	&__list {
+	}
+
+	// .product__item
+	&__item {
+	}
+}
+
+.prod-card {
+	// .prod-card__step
+	&__step {
+	}
+
+	// .prod-card__icon
+	&__icon {
+	}
+
+	// .prod-card__caption
+	&__caption {
+	}
+}
