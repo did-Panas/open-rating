@@ -108,7 +108,7 @@ body {
 }
 
 .h2 {
-	font-size: 44px;
+	@include adaptiveValue("font-size", 44, 32, 0, 768, 375);
 }
 
 .h1 {
@@ -161,5 +161,7 @@ body {
 
 	// .page__products
 	&__products {
+		margin-bottom: 120px;
+		@include adaptiveValue("margin-bottom", 104, 88, 3, 768, 375);
 	}
 }
