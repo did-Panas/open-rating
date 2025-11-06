@@ -358,8 +358,58 @@
 	}
 }
 
-// ACHIVEMENTS - section
+// MILESTONES - section
 
-.counter {
-	color: white;
+.milestones {
+	// .milestones__container
+	&__container {
+	}
+
+	// .milestones__title
+	&__title {
+	}
+
+	// .milestones__subtitle
+	&__subtitle {
+	}
+
+	// .milestones__numbers
+	&__numbers {
+	}
+
+	// .milestones__trust
+	&__trust {
+	}
+}
+
+.numbers {
+	// .numbers__list
+	&__list {
+	}
+
+	// .numbers__item
+	&__item {
+	}
+
+	// .numbers__digit
+	&__digit {
+	}
+
+	// .numbers__caption
+	&__caption {
+	}
+}
+
+.trust {
+	// .trust__title
+	&__title {
+	}
+
+	// .trust__logos
+	&__logos {
+	}
+
+	// .trust__logo
+	&__logo {
+	}
 }
