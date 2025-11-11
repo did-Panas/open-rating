@@ -73,6 +73,7 @@ function animatedCounters() {
 	function initAndAnimateCounters(container) {
 		const counters = container.querySelectorAll("[data-digits-counter]");
 		const spans = container.querySelectorAll(".numbers__num span");
+		const texts = container.querySelectorAll(".numbers__txt");
 
 		if (!counters.length) {
 			return; // Немає лічильників у цьому контейнері
@@ -101,6 +102,9 @@ function animatedCounters() {
 					// Робимо видимими ВСІ span'и всередині цього контейнера
 					spans.forEach(span => {
 						span.style.opacity = '1';
+					});
+					texts.forEach(text => {
+						text.style.opacity = '1';
 					});
 				})
 				.catch(error => {
