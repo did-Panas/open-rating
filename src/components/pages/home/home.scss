@@ -382,13 +382,7 @@
 	}
 
 	// .milestones__wrapper
-	&__wrapper {
-		// --- margin ---
-		margin-inline: 56px;
-		@media (max-width: toEm(1400)) {
-			margin-inline: 22.5px;
-		}
-		@include adaptiveValue("margin-inline", 22, 0, 3, 768, 375);
+	&__wrap {
 	}
 
 	// .milestones__title
@@ -542,5 +536,145 @@
 			width: 200px;
 			height: 120px;
 		}
+	}
+}
+
+// TEAM - section
+
+.team {
+	// .team__container
+	&__container {
+	}
+
+	// .team__title
+	&__title {
+	}
+
+	// .team__subtitle
+	&__subtitle {
+		max-width: 790px;
+	}
+
+	// .team__slider
+	&__slider {
+	}
+}
+
+.slider {
+	position: relative;
+	// .slider__slider
+	&__slider {
+	}
+
+	// .slider__wrapper
+	&__wrapper {
+	}
+
+	// .slider__slide
+	&__slide {
+		display: grid;
+		justify-items: center;
+		grid-gap: 12px;
+
+		padding: 32px 32px 40px;
+
+		border-radius: 16px;
+		background: radial-gradient(100% 100% at 49.87% 0%, #346160 0%, #242e43 58%);
+	}
+
+	// .slider__photo, .slider__position
+	&__photo,
+	&__position {
+		margin-bottom: 4px;
+	}
+
+	// .slider__photo
+	&__photo {
+		width: 160px;
+		height: 160px;
+		border-radius: 100%;
+		overflow: hidden;
+	}
+
+	// .slider__photo-ibg
+	&__photo-ibg {
+		& img {
+			width: 105%;
+			height: 105%;
+		}
+	}
+
+	// .slider__name
+	&__name {
+		font-size: 28px;
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	// .slider__position
+	&__position {
+		line-height: 1.5;
+	}
+
+	// .slider__description
+	&__description {
+		text-align: center;
+		line-height: 1.5;
+	}
+
+	&__btn-next,
+	&__btn-prev {
+		position: absolute;
+		top: 50%;
+		transform: translate(0px, -50%);
+		z-index: 500 !important;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		@include adaptiveValue("height", 72, 40, 0, 767, 375);
+		@include adaptiveValue("width", 72, 40, 0, 767, 375);
+
+		background: rgba(0, 0, 0, 0.3);
+		backdrop-filter: blur(12px);
+		border-radius: 60px;
+		border: 1px solid transparent;
+
+		cursor: pointer;
+		transition:
+			border 0.3s,
+			color 0.3s;
+
+		&.swiper-button-disabled::before {
+			color: #53586e;
+		}
+
+		@media (any-hover: hover) {
+			&:hover {
+				color: $accentColor;
+				border: 1px solid $accentColor;
+			}
+		}
+	}
+
+	// .slider__btn-prev
+	&__btn-prev {
+		@include adaptiveValue("left", -36, -16, 0, 767, 375);
+
+		&::before {
+			transform: rotate(-180deg);
+		}
+	}
+
+	// .slider__btn-next
+	&__btn-next {
+		// right: -36px;
+
+		// @media (max-width: toEm(1400)) {
+		// 	right: -34px;
+		// }
+
+		@include adaptiveValue("right", -34, -16, 0, 767, 375);
 	}
 }

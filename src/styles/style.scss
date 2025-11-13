@@ -136,6 +136,15 @@ body {
 	line-height: 1.5;
 }
 
+.wrap {
+	// --- margin ---
+	padding-inline: 56px;
+	@media (max-width: toEm(1400)) {
+		padding-inline: 22.5px;
+	}
+	@include adaptiveValue("padding-inline", 22, 0, 3, 768, 375);
+}
+
 // --- Images ------------------------
 
 [class*="-ibg"] {
@@ -173,9 +182,14 @@ body {
 	// .page__milestones
 	&__milestones {
 		margin: 1px 0px 120px;
-		@include adaptiveValue("margin-bottom", 104, 88, 3, 991, 375);
+		@include adaptiveValue("margin-bottom", 104, 88, 3, 768, 375);
 
 		padding-top: 120px;
 		@include adaptiveValue("padding-top", 100, 86, 3, 767, 375);
+	}
+
+	// .page__team
+	&__team {
+		@include adaptiveValue("margin-bottom", 64, 40, 0, 767, 375);
 	}
 }
