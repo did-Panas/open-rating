@@ -148,7 +148,9 @@ class ScrollWatcher {
 	}
 	// Функція виведення в консоль
 	scrollWatcherLogging(message, vars) {
-		this.config.logging ? FLS(message, vars) : null;
+		if (this.config.logging) {
+			FLS(message, vars);
+		}
 	}
 	// Функція обробки спостереження
 	scrollWatcherCallback(entry, observer) {
