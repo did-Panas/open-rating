@@ -116,15 +116,18 @@
 		position: absolute;
 		top: 20.869565%; /* 96/460 */
 		right: 2.5%; /* 8/320 */
-
-		width: 320px;
-		height: 320px;
+		& img {
+			width: 320px;
+			height: 320px;
+		}
 	}
 
 	// .hero__bitcoin
 	&__bitcoin {
-		width: 360px;
-		height: 360px;
+		& img {
+			width: 360px;
+			height: 360px;
+		}
 	}
 
 	// .hero__chips
