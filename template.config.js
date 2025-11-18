@@ -45,7 +45,7 @@ export default {
 			enable: true,
 			edithtml: true,
 			sizes: [600, 1200],
-			dpi: [1, 2],
+			dpi: [2],
 			attrignore: 'data-fls-image-ignore',
 			modernformat: {
 				enable: true,

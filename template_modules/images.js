@@ -227,7 +227,7 @@ function getDpi(size, dpi, image, imageOutUrl, extType, imageoutExt) {
 		const newImageOutUrl = imageOutUrl.replace(`.${imageoutExt}`, `-${dpiItem}x.${imageoutExt}`)
 		dpiImages.push(`${imageResize(dpiSize, image, newImageOutUrl, extType)} ${dpiItem}x`)
 	}
-	return dpiImages.join()
+	return dpiImages.join(', ') // виправлено. було - (return dpiImages.join())
 }
 function getImgSize(image) {
 	const buffer = fs.readFileSync(image)
