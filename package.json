@@ -57,7 +57,7 @@
 		"swiper": "latest",
 		"tailwindcss": "latest",
 		"tippy.js": "latest",
-		"vite": "latest",
+		"vite": "^6.4.1",
 		"vite-plugin-add-version": "latest",
 		"vite-plugin-ftp": "latest",
 		"vite-plugin-inspect": "latest",

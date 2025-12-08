@@ -1,4 +1,3 @@
-// Налаштування шаблону
 import templateConfig from '../template.config.js'
 const finalAliases = templateConfig.aliases
 // Логгер
@@ -12,8 +11,59 @@ import fs from 'fs'
 const isProduction = process.env.NODE_ENV === 'production'
 const isWp = process.argv.includes('--wp')
 
+// Плагіни для чистки FLS (якщо увімкнено та build)
+const flsCleanPlugin = (isProduction && templateConfig.logger.console.removeonbuild) ? [{
+	name: 'fls-clean',
+	apply: 'build',
+	enforce: 'post',
+	transform(src, id) {
+		if (id.endsWith('.js')) {
+			return src.replace(/(?<!function\s)FLS\(.*?\);?/gi, '')
+		}
+	}
+}] : []
+
+// Плагіни для створення копій для розробників (якщо увімкнено та build)
+const devFilesPlugin = (isProduction && templateConfig.js.devfiles) ? [{
+	name: "js-devfiles",
+	apply: 'build',
+	enforce: 'post',
+	writeBundle: {
+		order: 'post',
+		handler: async ({ dir }) => {
+			const jsFiles = globSync(`${dir}/js/*.js`)
+			// Створення копій
+			!fs.existsSync(`${dir}/js/dev`) ? fs.mkdirSync(`${dir}/js/dev`) : null
+			jsFiles.forEach(async (jsFile) => {
+				jsFile = normalizePath(jsFile)
+				const devJsFile = jsFile.replace('.min', '').replace('/js/', '/js/dev/')
+				fs.copyFileSync(jsFile, devJsFile)
+			});
+			logger('_IMG_JS_DEV_DONE')
+			// Оптимізація файлів
+			await esbuild.build({
+				entryPoints: jsFiles,
+				allowOverwrite: true,
+				minify: true,
+				outdir: `${dir}/js`,
+			})
+		}
+	}
+}] : []
+
+// Плагіни для динамічного додавання JS-модулів
+const hotModulesPlugin = templateConfig.js.hotmodules ? [{
+	name: 'hot-modules',
+	transformIndexHtml: {
+		order: 'pre',
+		handler(html) {
+			return insertModule(html)
+		}
+	},
+}] : []
+
 export const scriptsPlugins = [
-	// Обробка псевдонімів в JS-файлах
+	// Обробка псевдонімів в JS-файлах (завжди увімкнено)
 	{
 		name: 'do-aliases',
 		order: "pre",
@@ -30,69 +80,31 @@ export const scriptsPlugins = [
 		},
 	},
 	// Чистка від модуля FLS
-	...((isProduction && templateConfig.logger.console.removeonbuild) ? [{
-		name: 'fls-clean',
-		apply: 'build',
-		enforce: 'post',
-		transform(src, id) {
-			if (id.endsWith('.js')) {
-				return src.replace(/(?<!function\s)FLS\(.*?\);?/gi, '')
-			}
-		}
-	}] : []),
+	...flsCleanPlugin,
 	// Створення копії файлу(лів) для розробніків
-	...((isProduction && templateConfig.js.devfiles) ? [{
-		name: "js-devfiles",
-		apply: 'build',
-		enforce: 'post',
-		writeBundle: {
-			order: 'post',
-			handler: async ({ dir }) => {
-				const jsFiles = globSync(`${dir}/js/*.js`)
-				// Створення копій
-				!fs.existsSync(`${dir}/js/dev`) ? fs.mkdirSync(`${dir}/js/dev`) : null
-				jsFiles.forEach(async (jsFile) => {
-					jsFile = normalizePath(jsFile)
-					const devJsFile = jsFile.replace('.min', '').replace('/js/', '/js/dev/')
-					fs.copyFileSync(jsFile, devJsFile)
-				});
-				logger('_IMG_JS_DEV_DONE')
-				// Оптимізація файлів
-				await esbuild.build({
-					entryPoints: jsFiles,
-					allowOverwrite: true,
-					minify: true,
-					outdir: `${dir}/js`,
-				})
-			}
-		}
-	}] : []),
+	...devFilesPlugin,
 	// Динамічне додавання JS-модулів
-	...(templateConfig.js.hotmodules ? [{
-		name: 'hot-modules',
-		transformIndexHtml: {
-			order: 'pre',
-			handler(html) {
-				return insertModule(html)
-			}
-		},
-	}] : []),
+	...hotModulesPlugin,
 ]
+
 async function insertModule(html) {
 	const modules = new Set()
-	const moduleJSFiles = new Glob(`src/components/**/*.js`, { ignore: ['**/_*.*', '**/plugins/**', '**/pages/**', '**/wordpress/**'] })
+	// Примітка: Glob більше не є конструктором. Виправлено на використання globSync
+	const moduleJSFiles = globSync(`src/components/**/*.js`, { ignore: ['**/_*.*', '**/plugins/**', '**/pages/**', '**/wordpress/**'] })
 	const modulePlugins = new Map()
+
 	for (let moduleJSFile of moduleJSFiles) {
 		moduleJSFile = normalizePath(moduleJSFile).replace('src', '')
 		const moduleName = moduleJSFile.split('/').pop().replace('.js', '')
 		const pluginFiles = globSync(`src/components/*/${moduleName}/plugins/**/*.js`)
 		modulePlugins.set(moduleName, pluginFiles.map(plugin => normalizePath(plugin).replace('src', '')))
-
 	}
+
 	for (let moduleJSFile of moduleJSFiles) {
 		moduleJSFile = normalizePath(moduleJSFile).replace('src', '')
 		const moduleName = moduleJSFile.split('/').pop().replace('.js', '')
 		const regex = new RegExp(`\\bdata-fls-${moduleName}\\b`)
+
 		if (regex.test(html)) {
 			modules.add(`<script type="module" src="${moduleJSFile}"></script>`)
 			// Перевіряємо, чи є плагіни для цього модуля
